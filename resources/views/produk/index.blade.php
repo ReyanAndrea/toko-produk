@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- View: Menampilkan daftar produk toko -->
+<!-- Menggunakan Blade Template Engine Laravel -->
+<!-- Data dikirim dari ProdukController@index -->
 <html lang="id">
 
 <head>
