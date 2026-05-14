@@ -1,14 +1,15 @@
 <?php
 
+// Migration: Membuat tabel produks di database
+// Berisi kolom nama_produk, kategori, harga, stok, deskripsi
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    // Membuat tabel produks
     public function up(): void
     {
         Schema::create('produks', function (Blueprint $table) {
@@ -22,9 +23,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    // Menghapus tabel produks
     public function down(): void
     {
         Schema::dropIfExists('produks');
