@@ -3,11 +3,15 @@
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
-// Route utama - halaman welcome Laravel
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route untuk menampilkan daftar produk toko
-// Mengarahkan ke ProdukController method index
+// Routes CRUD Produk
 Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk/create', [ProdukController::class, 'create']);
+Route::post('/produk', [ProdukController::class, 'store']);
+Route::get('/produk/{id}/edit', [ProdukController::class, 'edit']);
+Route::put('/produk/{id}', [ProdukController::class, 'update']);
+Route::delete('/produk/{id}', [ProdukController::class, 'destroy']);
+Route::get('/produk/search', [ProdukController::class, 'search']);
