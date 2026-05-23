@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2026 at 11:06 AM
+-- Generation Time: May 23, 2026 at 06:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,6 +99,29 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kategoris`
+--
+
+CREATE TABLE `kategoris` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_kategori` varchar(255) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kategoris`
+--
+
+INSERT INTO `kategoris` (`id`, `nama_kategori`, `deskripsi`, `created_at`, `updated_at`) VALUES
+(1, 'Pakaian', 'Produk pakaian pria dan wanita', '2026-05-23 03:01:51', '2026-05-23 03:01:51'),
+(2, 'Alas Kaki', 'Sepatu dan sandal', '2026-05-23 03:01:51', '2026-05-23 03:01:51'),
+(3, 'Aksesoris', 'Tas, topi, dan aksesoris lainnya', '2026-05-23 03:01:51', '2026-05-23 03:01:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -116,7 +139,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '2026_05_14_083501_create_produks_table', 1);
+(4, '2026_05_14_083501_create_produks_table', 1),
+(5, '2026_05_23_025207_create_kategoris_table', 2),
+(6, '2026_05_23_025244_add_kategori_id_to_produks_table', 2);
 
 -- --------------------------------------------------------
 
@@ -139,24 +164,25 @@ CREATE TABLE `password_reset_tokens` (
 CREATE TABLE `produks` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama_produk` varchar(255) NOT NULL,
-  `kategori` varchar(255) NOT NULL,
+  `kategori` varchar(255) DEFAULT NULL,
   `harga` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `kategori_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `produks`
 --
 
-INSERT INTO `produks` (`id`, `nama_produk`, `kategori`, `harga`, `stok`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(1, 'Kemeja Flannel', 'Pakaian', 150000, 25, 'Kemeja flannel pria motif kotak', '2026-05-14 08:42:13', '2026-05-14 08:42:13'),
-(2, 'Sepatu Sneakers', 'Alas Kaki', 350000, 10, 'Sneakers casual pria wanita', '2026-05-14 08:42:13', '2026-05-14 08:42:13'),
-(3, 'Tas Ransel', 'Aksesoris', 275000, 15, 'Tas ransel anti air kapasitas 30L', '2026-05-14 08:42:13', '2026-05-14 08:42:13'),
-(4, 'Celana Chino', 'Pakaian', 200000, 20, 'Celana chino slim fit', '2026-05-14 08:42:13', '2026-05-14 08:42:13'),
-(5, 'Topi Baseball', 'Aksesoris', 85000, 0, 'Topi baseball polos premium', '2026-05-14 08:42:13', '2026-05-14 08:42:13');
+INSERT INTO `produks` (`id`, `nama_produk`, `kategori`, `harga`, `stok`, `deskripsi`, `created_at`, `updated_at`, `kategori_id`) VALUES
+(1, 'Kemeja Flannel', 'Pakaian', 150000, 25, 'Kemeja flannel pria motif kotak', '2026-05-14 08:42:13', '2026-05-14 08:42:13', 1),
+(2, 'Sepatu Sneakers', 'Alas Kaki', 350000, 10, 'Sneakers casual pria wanita', '2026-05-14 08:42:13', '2026-05-14 08:42:13', 2),
+(3, 'Tas Ransel', 'Aksesoris', 275000, 15, 'Tas ransel anti air kapasitas 30L', '2026-05-14 08:42:13', '2026-05-14 08:42:13', 3),
+(4, 'Celana Chino', 'Pakaian', 200000, 20, 'Celana chino slim fit', '2026-05-14 08:42:13', '2026-05-14 08:42:13', 1),
+(5, 'Topi Baseball', 'Aksesoris', 85000, 0, 'Topi baseball polos premium', '2026-05-14 08:42:13', '2026-05-14 08:42:13', 3);
 
 -- --------------------------------------------------------
 
@@ -178,7 +204,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('iZvwBlld6t0uYPV6kSfrUUCHosgYLntsnhgeadBl', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQUZlTkV4R0JhZXpNeUxTNW56RHloUUoxdmo2YW8yV1RFR1FuNWJ4VSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wcm9kdWsiO3M6NToicm91dGUiO047fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1778749487);
+('NeqLxUcSSicitQc0ouPNy8WXflXGFaPJ97jokzMV', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQk1LZGNzSDNxM2RDMzM4TzA5U1paeDNWSG5wdFZTN3ZxaUE1ZDFrbyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wcm9kdWsiO3M6NToicm91dGUiO047fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1779509119);
 
 -- --------------------------------------------------------
 
@@ -236,6 +262,12 @@ ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kategoris`
+--
+ALTER TABLE `kategoris`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -251,7 +283,8 @@ ALTER TABLE `password_reset_tokens`
 -- Indexes for table `produks`
 --
 ALTER TABLE `produks`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `produks_kategori_id_foreign` (`kategori_id`);
 
 --
 -- Indexes for table `sessions`
@@ -285,22 +318,38 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `kategoris`
+--
+ALTER TABLE `kategoris`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `produks`
 --
 ALTER TABLE `produks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `produks`
+--
+ALTER TABLE `produks`
+  ADD CONSTRAINT `produks_kategori_id_foreign` FOREIGN KEY (`kategori_id`) REFERENCES `kategoris` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
